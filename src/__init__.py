@@ -39,5 +39,7 @@ if __name__ == "__main__":
     )
     model.compile(optimizer="adam", loss="mse", metrics=["mae"])
     model.fit(X, y, epochs=20)
+    model.save("out/models/grid-loss.keras")                                               
     X_test, y_test = preprocess_grid_loss_data(load_grid_loss_csv(test))
     res = model.evaluate(X_test, y_test)
+    print(res)
