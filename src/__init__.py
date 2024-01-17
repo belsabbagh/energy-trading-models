@@ -29,8 +29,8 @@ def preprocess_grid_loss_data(df):
 
 
 if __name__ == "__main__":
-    train = "data/grid-loss/train.csv"
-    test = "data/grid-loss/test.csv"
+    train = "../data/grid-loss/train.csv"
+    test = "../data/grid-loss/test.csv"
     X, y = preprocess_grid_loss_data(load_grid_loss_csv(train))
     print(X.head())
     print(y.head())
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     )
     model.compile(optimizer="adam", loss="mse", metrics=["mae"])
     model.fit(X, y, epochs=20)
-    model.save("out/models/grid-loss.keras")                                               
+    model.save("../out/models/grid-loss.keras")                                               
     X_test, y_test = preprocess_grid_loss_data(load_grid_loss_csv(test))
     res = model.evaluate(X_test, y_test)
     print(res)
