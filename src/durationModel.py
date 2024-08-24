@@ -1,25 +1,34 @@
 import pandas as pd
-from sklearn.linear_model import LinearRegression
-import pickle
 import tensorflow as tf
 from sklearn.metrics import r2_score
 
-def load_duration_csv(csv): 
+
+def load_duration_csv(csv):
     df = pd.read_csv(csv, sep=";")
-    columns = ["Time", "Day", "Voltage", "Global_intensity", "Efficiency", "Transaction_amount", "Transaction_duration"]
+    columns = [
+        "Time",
+        "Day",
+        "Voltage",
+        "Global_intensity",
+        "Efficiency",
+        "Transaction_amount",
+        "Transaction_duration",
+    ]
     df = df[columns]
     df = df.set_index(["Time", "Day"])
     return df
 
+
 def preprocess_duration_data(df):
     df.dropna(inplace=True)
-    X = df[["Voltage", "Global_intensity", "Efficiency", "Transaction_amount"]].astype("float64")
+    X = df[["Voltage", "Global_intensity", "Efficiency", "Transaction_amount"]].astype(
+        "float64"
+    )
     y = df["Transaction_duration"]
     return X, y
 
 
-
-# def main(): 
+# def main():
 #     train = "../data/duration/train.csv"
 #     test = "../data/duration/test.csv"
 #     X, y = preprocess_duration_data(load_duration_csv(train))
@@ -27,18 +36,17 @@ def preprocess_duration_data(df):
 #     print(y.head())
 #     model = LinearRegression()
 #     model.fit(X, y)
-    
+
 #     X_test, y_test = preprocess_duration_data(load_duration_csv(test))
 #     print(model.score(X_test, y_test))
 #     # print the most important features
 #     print(model.coef_)
 #     print(model.intercept_)
-    
+
 #     pickle.dump(model, open("../out/models/duration.pkl", 'wb'))
 
-    
 
-def main(): 
+def main():
     train = "../data/duration/train.csv"
     test = "../data/duration/test.csv"
     X, y = preprocess_duration_data(load_duration_csv(train))
@@ -64,6 +72,6 @@ def main():
     print("R-squared:", r2)
 
 
-
 if __name__ == "__main__":
     main()
+

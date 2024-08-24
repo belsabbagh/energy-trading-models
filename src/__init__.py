@@ -3,7 +3,7 @@ import tensorflow as tf
 
 
 def load_grid_loss_csv(csv):
-    df = pd.read_csv(csv)
+    df: pd.DataFrame = pd.read_csv(csv)
     columns = ["Unnamed: 0", "grid1-load", "grid1-loss", "grid1-temp"]
     df = df[columns]
     df = df.rename(
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     )
     model.compile(optimizer="adam", loss="mse", metrics=["mae"])
     model.fit(X, y, epochs=20)
-    model.save("../out/models/grid-loss.keras")                                               
+    model.save("../out/models/grid-loss.keras")
     X_test, y_test = preprocess_grid_loss_data(load_grid_loss_csv(test))
     res = model.evaluate(X_test, y_test)
     print(res)
